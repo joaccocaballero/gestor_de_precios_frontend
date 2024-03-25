@@ -11,6 +11,7 @@ export default async function logInUser(user) {
             body: JSON.stringify(user),
         });
         const data = await response.json();
+        console.log(response)
         return {status: response.status, data};
     } catch (error) {
         throw error;
