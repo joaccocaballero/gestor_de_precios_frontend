@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import logInUser from '../../services/auth/auth';
 import Swal from 'sweetalert2';
-import Loading from '@/components/loading';
+import Loading from '@/components/Loading';
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
