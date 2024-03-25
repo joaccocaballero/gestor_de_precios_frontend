@@ -1,5 +1,13 @@
+'use client'
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({ children }) {
+    const router = useRouter();
+    const handleLogout = async () => {
+        localStorage.clear()
+        await fetch('/api/logout');
+        router.push('/')
+    };
   return (
     <div lang="en">
         <header className="p-2">
@@ -14,7 +22,7 @@ export default function RootLayout({ children }) {
                             <li><a href="/dashboard/agregar" className="font-bold p-2 text-xl">Agregar</a></li>
                             <li><a href="/dashboard/modificar" className="font-bold p-2 text-xl">Modificar</a></li>
                           
-                            <li><a className="font-bold text-error text-lg p-2 mt-3">Cerrar Sesión</a></li>
+                            <li><a className="font-bold text-error text-lg p-2 mt-3" onClick={()=>handleLogout()}>Cerrar Sesión</a></li>
                             
                         </ul>
                     </div>
@@ -29,7 +37,7 @@ export default function RootLayout({ children }) {
                 </div>
 
                 <div className="hidden lg:navbar-end lg:flex">
-                    <a className= "btn btn-error btn-sm text-white font-bold">Cerrar Sesión</a>
+                    <a className= "btn btn-error btn-sm text-white font-bold" onClick={()=>handleLogout()}>Cerrar Sesión</a>
                 </div>
             </div>
       </header>

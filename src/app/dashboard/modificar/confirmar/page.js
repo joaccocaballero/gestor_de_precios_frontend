@@ -14,27 +14,35 @@ export default function ConfirmarModificacion() {
   const codigoRef = useRef(null);
 
   const handleConfirmar = async () => {
-    const item = {
-      name: nombreRef.current.value,
-      costPrice: precioCostoRef.current.value,
-      publicPrice: precioPublicoRef.current.value,
-      barcode: codigoRef.current.value
-    }
-    const response = await updateProductByDatabaseId(producto.id, item);
-    if(response.status === 200) {
+    try {
+      const item = {
+        name: nombreRef.current.value,
+        costPrice: precioCostoRef.current.value,
+        publicPrice: precioPublicoRef.current.value,
+        barcode: codigoRef.current.value
+      }
+      const response = await updateProductByDatabaseId(producto.id, item);
+      if(response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Producto modificado con éxito.",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        router.back();
+      }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un error al modificar el producto.",
+        });
+      }
+    } catch (error) {
       Swal.fire({
-        icon: "success",
-        title: "Producto modificado con éxito.",
-        showConfirmButton: false,
-        timer: 1000,
-      });
-      router.back();
-    }
-    else{
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Hubo un error al modificar el producto.",
+        icon: 'error',
+        title: 'Error',
+        text: error.message,
       });
     }
   }

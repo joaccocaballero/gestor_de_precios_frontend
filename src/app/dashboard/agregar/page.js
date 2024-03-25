@@ -1,5 +1,7 @@
 'use client'
 import React, { useRef } from 'react';
+import { addNewProduct } from '../../../../services/products/productsEndpoints';
+import Swal from 'sweetalert2';
 
 export default function Agregar() {
   const nombreRef = useRef(null);
@@ -7,15 +9,40 @@ export default function Agregar() {
   const precioPublicoRef = useRef(null);
   const codigoRef = useRef(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const nombre = nombreRef.current.value;
-    const precio = precioRef.current.value;
-    const codigo = codigoRef.current.value;
-    // Aquí puedes agregar la lógica para manejar el envío del formulario
-    console.log('Nombre:', nombre);
-    console.log('Precio:', precio);
-    console.log('Código:', codigo);
+  const clearFields = () => {
+    nombreRef.current.value = '';
+    precioCostoRef.current.value = '';
+    precioPublicoRef.current.value = '';
+    codigoRef.current.value = '';
+  }
+
+  const handleSubmit = async (event) => {
+    const product = {
+      name : nombreRef.current.value,
+      costPrice : precioCostoRef.current.value,
+      publicPrice : precioPublicoRef.current.value,
+      barcode : codigoRef.current.value
+    }
+    try {
+      const response = await addNewProduct(product);
+      console.log(response)
+      if(response.status===200){
+        Swal.fire({
+          icon: 'success',
+          title: 'Producto agregado',
+          text: 'El producto se ha agregado correctamente',
+          showConfirmButton: false,
+          timer: 1000
+        });
+        clearFields();
+      }
+    } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.message,
+        });
+    }
   };
 
   return (
@@ -23,7 +50,7 @@ export default function Agregar() {
       <div className="flex justify-center mt-5 ">
         <h1 className="text-2xl font-bold">Agregar Producto</h1>
       </div>
-      <form onSubmit={handleSubmit} className="flex justify-center items-center flex-col mt-6">
+      <form className="flex justify-center items-center flex-col mt-6">
         <div className="w-full flex flex-col items-center">
           <div className='flex items-start w-[80%]'>
             <label htmlFor="nombre" className="block font-medium text-gray-700 mb-1">Nombre</label>
@@ -78,7 +105,7 @@ export default function Agregar() {
             className="input input-bordered input-accent w-[80%]"
           />
         <div className="w-[80%] mt-6 flex justify-end">
-          <button type="submit" className="btn btn-success text-white">CONFIRMAR</button>
+          <button type="button" className="btn btn-success text-white" onClick={()=>handleSubmit()}>CONFIRMAR</button>
         </div>
         </div>
       </form>

@@ -43,6 +43,29 @@ export async function updateProductByDatabaseId(id, product) {
             body: JSON.stringify(product)
         })
         const data = await response.json();
+        if(!response.ok){
+            throw new Error(data.error)
+        }
+        return {status: response.status, data: data}
+    } catch (error) {
+        throw error //Rethrow the error to be caught in the component
+    }
+}
+
+export async function addNewProduct(product) {
+    try {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/products/addNewProduct', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(product)
+        })
+        const data = await response.json();
+        if(!response.ok){
+            throw new Error(data.error)
+        }
         return {status: response.status, data: data}
     } catch (error) {
         throw error //Rethrow the error to be caught in the component

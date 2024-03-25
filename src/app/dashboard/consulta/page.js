@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { getProductByBarcodeOrName } from '../../../../services/products/productsEndpoints';
 import { debounce } from 'lodash'; // Importa la función de debounce de la librería lodash
+import Swal from 'sweetalert2';
 
 // Componente para renderizar cada fila de la tabla
 const ProductoRow = ({ name, costPrice, publicPrice }) => (
@@ -24,12 +25,20 @@ export default function Consulta() {
   // Utiliza debounce para retrasar la ejecución de la función handleInputChange
   const delayedHandleInputChange = useRef(
     debounce(async (codigoNombre) => {
-      const productosEncontrados = await getProductByBarcodeOrName(codigoNombre);
-      if (productosEncontrados.status === 200) {
-        setResultado(productosEncontrados.data);
-      } else {
-        setResultado("Producto no encontrado");
-      }
+     try {
+       const productosEncontrados = await getProductByBarcodeOrName(codigoNombre);
+       if (productosEncontrados.status === 200) {
+         setResultado(productosEncontrados.data);
+       } else {
+         setResultado("Producto no encontrado");
+       }
+     } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.message,
+        });
+     }
     }, 500) // 500 milisegundos de retraso
   ).current;
 
