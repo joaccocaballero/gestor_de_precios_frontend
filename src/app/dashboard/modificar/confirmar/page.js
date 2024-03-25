@@ -3,8 +3,10 @@ import React, { useEffect, useRef , useState} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getProductByDatabaseId, updateProductByDatabaseId} from '../../../../../services/products/productsEndpoints';
 import Swal from 'sweetalert2';
+import { Suspense } from 'react'
 
-export default function ConfirmarModificacion() {
+
+function ConfirmarModificacion() {
   const searchParams = useSearchParams()
   const router = useRouter();
   const [producto, setProducto] = useState(null);
@@ -170,4 +172,13 @@ export default function ConfirmarModificacion() {
       </form>
     </main>
   );
+}
+
+export default function Confirmar(){
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <ConfirmarModificacion/>
+    </Suspense>
+  )
 }
