@@ -3,7 +3,8 @@ import React, { useRef } from 'react';
 
 export default function Agregar() {
   const nombreRef = useRef(null);
-  const precioRef = useRef(null);
+  const precioCostoRef = useRef(null);
+  const precioPublicoRef = useRef(null);
   const codigoRef = useRef(null);
 
   const handleSubmit = (event) => {
@@ -20,7 +21,7 @@ export default function Agregar() {
   return (
     <main className="flex justify-center flex-col p-4">
       <div className="flex justify-center mt-5 ">
-        <h1 className="text-2xl font-bold">Agregar un Producto</h1>
+        <h1 className="text-2xl font-bold">Agregar Producto</h1>
       </div>
       <form onSubmit={handleSubmit} className="flex justify-center items-center flex-col mt-6">
         <div className="w-full flex flex-col items-center">
@@ -37,13 +38,29 @@ export default function Agregar() {
         </div>
         <div className="w-full flex flex-col items-center mt-4">
           <div className='flex items-start w-[80%]'>
-            <label htmlFor="nombre" className="block font-medium text-gray-700 mb-1">Precio</label>
+            <label htmlFor="nombre" className="block font-medium text-gray-700 mb-1">Precio Costo</label>
           </div>
           <input
-            type="text"
+            type="number"
             id="precio"
-            ref={precioRef}
-            placeholder="Ingrese el precio del producto"
+            inputMode="numeric"
+            pattern="\d*" 
+            ref={precioCostoRef}
+            placeholder="Ingrese el precio costo del producto"
+            className="input input-bordered input-accent w-[80%]"
+          />
+        </div>
+        <div className="w-full flex flex-col items-center mt-4">
+          <div className='flex items-start w-[80%]'>
+            <label htmlFor="nombre" className="block font-medium text-gray-700 mb-1">Precio Público</label>
+          </div>
+          <input
+            type="number"
+            id="precio"
+            inputMode="numeric"
+            pattern="\d*" 
+            ref={precioPublicoRef}
+            placeholder="Ingrese el precio público del producto"
             className="input input-bordered input-accent w-[80%]"
           />
         </div>
@@ -52,8 +69,10 @@ export default function Agregar() {
             <label htmlFor="nombre" className="block font-medium text-gray-700 mb-1">Código</label>
           </div>
           <input
-            type="text"
+            type="number"
             id="codigo"
+            inputMode="numeric"
+            pattern="\d*" 
             ref={codigoRef}
             placeholder="Ingrese el código del producto"
             className="input input-bordered input-accent w-[80%]"

@@ -1,42 +1,55 @@
 'use client'
 
 import React, { useRef, useState, useEffect } from 'react';
+import { getProductByBarcodeOrName } from '../../../../services/products/productsEndpoints';
+import { debounce } from 'lodash'; // Importa la función de debounce de la librería lodash
 
 // Componente para renderizar cada fila de la tabla
-const ProductoRow = ({ nombre, precio, codigo }) => (
+const ProductoRow = ({ name, costPrice, publicPrice }) => (
   <tr>
-    <td>{nombre}</td>
-    <td>${precio}</td>
-    <td>{codigo}</td>
+    <td>{name}</td>
+    <td>${costPrice}</td>
+    <td>${publicPrice}</td>
   </tr>
 );
 
 export default function Consulta() {
   const inputRef = useRef(null);
-  const [productos] = useState([
-    { nombre: 'Desodorante Rexona', precio: 100, codigo: '77947457' }
-  ]);
   const [resultado, setResultado] = useState(null);
 
   useEffect(() => {
-    inputRef.current.focus(); // Enfocar el input cuando el componente se monta
-  }, []); // El array vacío asegura que este efecto solo se ejecute una vez después de que el componente se monte
+    inputRef.current.focus();
+  }, []);
 
-  const handleInputChange = () => {
-    const codigoBuscado = inputRef.current.value;
-    const productoEncontrado = productos.find(producto => producto.codigo === codigoBuscado);
+  // Utiliza debounce para retrasar la ejecución de la función handleInputChange
+  const delayedHandleInputChange = useRef(
+    debounce(async (codigoNombre) => {
+      const productosEncontrados = await getProductByBarcodeOrName(codigoNombre);
+      if (productosEncontrados.status === 200) {
+        setResultado(productosEncontrados.data);
+      } else {
+        setResultado("Producto no encontrado");
+      }
+    }, 500) // 500 milisegundos de retraso
+  ).current;
 
-    if (productoEncontrado) {
-      setResultado(<ProductoRow {...productoEncontrado} />);
-    } else {
-      setResultado("Producto no encontrado");
+  const handleInputChange = (event) => {
+    const codigoNombre = event.target.value;
+    if(codigoNombre != ''){
+      delayedHandleInputChange(codigoNombre);
     }
   };
 
   const clearSearch = () => {
     inputRef.current.value = '';
-    inputRef.current.focus(); // Enfocar el input cuando el componente se monta
+    inputRef.current.focus();
     setResultado(null);
+  };
+
+  const handleInputBlur = (event) => {
+    event.preventDefault();
+    inputRef.current.value = '';
+    // inputRef.current.focus();
   };
 
   return (
@@ -48,10 +61,11 @@ export default function Consulta() {
         <div className="w-full flex flex-col items-center mt-6">
           <input
             type="text"
-            placeholder="Ingrese código del producto"
+            placeholder="Ingrese código o nombre del producto"
             className="input input-bordered input-accent w-[90%]"
             ref={inputRef}
             onChange={handleInputChange}
+            onBlur={handleInputBlur}
           />
           <button className='btn mt-3 btn-base-200 w-[90%]' onClick={clearSearch}>
             Limpiar búsqueda
@@ -70,12 +84,18 @@ export default function Consulta() {
                   <thead>
                     <tr>
                       <th className='font-bold text-xl'>Nombre</th>
-                      <th className='font-bold text-xl'>Precio</th>
-                      <th className='font-bold text-xl'>Código</th>
+                      <th className='font-bold text-xl'>Precio Costo</th>
+                      <th className='font-bold text-xl'>Precio Público</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {resultado}
+                   {
+                    resultado.sort().map((producto, index) => {
+                      return(
+                        <ProductoRow key={index} {...producto} />
+                      )
+                      })
+                   }
                   </tbody>
                 </table>
               )}
@@ -86,3 +106,24 @@ export default function Consulta() {
     </main>
   );
 }
+
+
+
+// const [productos] = useState([
+//   {
+//     name: 'REXONA ODORONO CREMA',
+//     barcode: 77947457,
+//     cost_price: 80,
+//     public_price: 150,
+//     created_at: new Date(),
+//     updated_at: new Date()
+//   },
+//   {
+//     name: 'REXONA INVISIBLE ROLL ON',
+//     barcode: 47894794,
+//     cost_price: 90,
+//     public_price: 180,
+//     created_at: new Date(),
+//     updated_at: new Date()
+//   },
+// ]);

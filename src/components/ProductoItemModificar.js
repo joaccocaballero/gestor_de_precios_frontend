@@ -1,15 +1,15 @@
 import { useRouter } from 'next/navigation';
 
 // Componente para renderizar cada fila de la tabla
-const ProductoItemModificar = ({ nombre, precio, codigo }) => {
+const ProductoItemModificar = ({ name, costPrice, publicPrice, id}) => {
     const router = useRouter();
     return(
         <tr>
-            <td>{nombre}</td>
-            <td>${precio}</td>
-            <td>{codigo}</td>
+            <td>{name}</td>
+            <td>${costPrice}</td>
+            <td>${publicPrice}</td>
             <td>
-            <button className='btn btn-sm btn-primary' onClick={()=>router.push('/dashboard/modificar/confirmar')}>Modificar</button>
+                <button className='btn btn-sm text-white btn-primary' onClick={()=>router.push('/dashboard/modificar/confirmar?idProductoDb='+id)}>Modificar</button>
             </td>
         </tr>
     )

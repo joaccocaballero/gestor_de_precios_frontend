@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn-error{
+    background-color: #d53030; /* Color de fondo personalizado */
+    color: #ffffff; /* Color de texto personalizado */
+    border-radius: 8px; /* Redondeo de esquinas personalizado */
+    border-color: #d53030;
+}
