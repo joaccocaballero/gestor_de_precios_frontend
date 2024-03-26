@@ -11,7 +11,6 @@ export async function POST(req) {
     body: JSON.stringify(body)
   });
   const data = await response.json();
-  console.log(body)
   if(!response.ok){
     return new NextResponse(
       JSON.stringify({message: data.message }), {

@@ -16,7 +16,7 @@ export default function Agregar() {
     codigoRef.current.value = '';
   }
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     const product = {
       name : nombreRef.current.value,
       costPrice : precioCostoRef.current.value,

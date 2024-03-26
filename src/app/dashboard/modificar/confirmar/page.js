@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef , useState} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getProductByDatabaseId, updateProductByDatabaseId} from '../../../../../services/products/productsEndpoints';
+import { deleteProduct, getProductByDatabaseId, updateProductByDatabaseId} from '../../../../../services/products/productsEndpoints';
 import Swal from 'sweetalert2';
 import { Suspense } from 'react'
 
@@ -54,30 +54,55 @@ function ConfirmarModificacion() {
   };
 
   const fetchDatosProducto = async () => {
-    const idProductoDb = searchParams.get('idProductoDb');
-    const producto = await getProductByDatabaseId(idProductoDb);
-    if(producto.status !== 200) {
+    try {
+      const idProductoDb = searchParams.get('idProductoDb');
+      const producto = await getProductByDatabaseId(idProductoDb);
+      if(producto.status !== 200) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un error al cargar los datos del producto.",
+        });
+      }else{
+        setProducto(producto.data);
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Hubo un error al cargar los datos del producto.",
+        text: error.message,
       });
-    }else{
-      setProducto(producto.data);
     }
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = async () => {
     Swal.fire({
       title: "¿Desea eliminar este producto?",
       showCancelButton: true,
       confirmButtonText: "Eliminar",
       confirmButtonColor: "#dc3545",  
       cancelButtonText: "Cancelar",
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
+        try {
+          const response = await deleteProduct(producto.id);
+          if(response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Producto eliminado con éxito.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
+            router.back();
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.message,
+          });
+        } 
+       
       }
     });
   }

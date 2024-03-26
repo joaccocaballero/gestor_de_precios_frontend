@@ -58,7 +58,6 @@ export default function Consulta() {
   const handleInputBlur = (event) => {
     event.preventDefault();
     inputRef.current.value = '';
-    // inputRef.current.focus();
   };
 
   return (
