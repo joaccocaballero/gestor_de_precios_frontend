@@ -5,9 +5,9 @@ const ProductoItemModificar = ({ name, costPrice, publicPrice, id}) => {
     const router = useRouter();
     return(
         <tr>
-            <td>{name}</td>
-            <td>${costPrice}</td>
-            <td>${publicPrice}</td>
+            <td className='text-black text-center text-2xl'>{name}</td>
+            <td className='text-black text-center text-4xl'> ${costPrice}</td>
+            <td className='text-black text-center font-bold text-4xl'>${publicPrice}</td>
             <td>
                 <button className='btn btn-sm text-white btn-primary' onClick={()=>router.push('/dashboard/modificar/confirmar?idProductoDb='+id)}>Modificar</button>
             </td>

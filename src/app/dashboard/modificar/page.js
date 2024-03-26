@@ -59,26 +59,26 @@ export default function Modificar() {
   return (
     <main className="flex justify-center flex-col p-4">
       <div className="flex justify-center mt-5">
-        <h1 className="text-2xl font-bold">Modificar Producto</h1>
+        <h1 className="text-4xl font-bold">Modificar Producto</h1>
       </div>
       <div className="flex justify-center items-center flex-col">
         <div className="w-full flex flex-col items-center mt-6">
           <input
             type="text"
             placeholder="Ingrese código o nombre del producto"
-            className="input input-bordered input-accent w-[90%]"
+            className="input input-bordered placeholder-black input-accent w-[90%]"
             ref={inputRef}
             onChange={handleInputChange}
             onBlur={(event)=>handleInputBlur(event)}
           />
-          <button className='btn mt-3 btn-base-200 w-[90%]' onClick={clearSearch}>
+          <button className='btn mt-3 btn-neutral w-[90%]' onClick={clearSearch}>
             Limpiar búsqueda
           </button>
         </div>
       </div>
-      <section className='p-5 text-lg justify-center flex flex-col'>
+      <section className='p-5 text-lg justify-center items-center flex flex-col'>
         {resultado !== null && (
-          <>
+          <div className='w-[80vw]'>
             <h2 className="text-2xl mt-8 font-bold">Resultado</h2>
             <div className="overflow-x-auto mt-4">
               {resultado === "Producto no encontrado" ? (
@@ -87,10 +87,10 @@ export default function Modificar() {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th className='font-bold text-xl'>Nombre</th>
-                      <th className='font-bold text-xl'>Precio Costo</th>
-                      <th className='font-bold text-xl'>Precio Público</th>
-                      <th className='font-bold text-xl'>Acciones</th>
+                      <th className='font-bold text-black text-2xl'>Nombre</th>
+                      <th className='font-bold text-black text-2xl'>Precio Costo</th>
+                      <th className='font-bold text-black text-2xl'>Precio Público</th>
+                      <th className='font-bold text-black text-2xl'>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -105,7 +105,7 @@ export default function Modificar() {
                 </table>
               )}
             </div>
-          </>
+          </div>
         )}
       </section>
     </main>

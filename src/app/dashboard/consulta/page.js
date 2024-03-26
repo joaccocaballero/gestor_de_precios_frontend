@@ -8,9 +8,9 @@ import Swal from 'sweetalert2';
 // Componente para renderizar cada fila de la tabla
 const ProductoRow = ({ name, costPrice, publicPrice }) => (
   <tr>
-    <td>{name}</td>
-    <td>${costPrice}</td>
-    <td>${publicPrice}</td>
+    <td className='text-black text-center text-2xl'>{name}</td>
+    <td className='text-black text-center text-4xl'>${costPrice}</td>
+    <td className='text-black text-center text-4xl font-bold'>${publicPrice}</td>
   </tr>
 );
 
@@ -63,26 +63,26 @@ export default function Consulta() {
   return (
     <main className="flex justify-center flex-col p-4">
       <div className="flex justify-center mt-5">
-        <h1 className="text-2xl font-bold">Consulta de Precio</h1>
+        <h1 className="text-4xl font-bold">Consulta de Precio</h1>
       </div>
       <div className="flex justify-center items-center flex-col">
         <div className="w-full flex flex-col items-center mt-6">
           <input
             type="text"
             placeholder="Ingrese código o nombre del producto"
-            className="input input-bordered input-accent w-[90%]"
+            className="input placeholder-black input-bordered input-accent w-[90%]"
             ref={inputRef}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
           />
-          <button className='btn mt-3 btn-base-200 w-[90%]' onClick={clearSearch}>
+          <button className='btn mt-3 bg-neutral text-white w-[90%]' onClick={clearSearch}>
             Limpiar búsqueda
           </button>
         </div>
       </div>
-      <section className='p-5 text-lg justify-center flex flex-col'>
+      <section className='p-5 text-lg justify-center flex items-center flex-col'>
         {resultado !== null && (
-          <>
+          <div className='w-[80vw]'>
             <h2 className="text-2xl mt-8 font-bold">Resultado</h2>
             <div className="overflow-x-auto mt-4">
               {resultado === "Producto no encontrado" ? (
@@ -91,9 +91,9 @@ export default function Consulta() {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th className='font-bold text-xl'>Nombre</th>
-                      <th className='font-bold text-xl'>Precio Costo</th>
-                      <th className='font-bold text-xl'>Precio Público</th>
+                      <th className='font-bold text-black text-2xl'>Nombre</th>
+                      <th className='font-bold text-black text-2xl'>Precio Costo</th>
+                      <th className='font-bold  text-black text-2xl'>Precio Público</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -108,7 +108,7 @@ export default function Consulta() {
                 </table>
               )}
             </div>
-          </>
+          </div>
         )}
       </section>
     </main>
