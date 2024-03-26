@@ -93,9 +93,9 @@ export default function Consulta() {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th className='font-bold text-black text-2xl'>Nombre</th>
-                      <th className='font-bold text-black text-2xl'>Precio Costo</th>
-                      <th className='font-bold  text-black text-2xl'>Precio Público</th>
+                      <th className='font-bold text-center text-black text-2xl'>Nombre</th>
+                      <th className='font-bold text-center text-black text-2xl'>Precio Costo</th>
+                      <th className='font-bold text-center  text-black text-2xl'>Precio Público</th>
                     </tr>
                   </thead>
                   <tbody>

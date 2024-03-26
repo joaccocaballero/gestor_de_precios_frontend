@@ -61,35 +61,35 @@ export default function Page() {
         (!Cargando) ? 
         <> 
             <div className="flex justify-center mt-5 ">
-              <h1 className="text-2xl font-bold">Iniciar Sesión</h1>
+              <h1 className="text-2xl font-bold">Provisión Carla</h1>
             </div>
             <form onSubmit={handleSubmit} className="flex justify-center items-center flex-col mt-6">
                 <div className="w-full flex flex-col items-center">
-                  <div className='flex items-start w-[60%]'>
-                    <label htmlFor="username" className="block font-medium text-gray-700 mb-1">Nombre de Usuario</label>
+                  <div className='flex items-start w-[40vw]'>
+                    <label htmlFor="username" className="block font-bold  text-gray-700 mb-1">Nombre de Usuario</label>
                   </div>
                   <input
                     type="text"
                     id="username"
                     ref={usernameRef}
                     placeholder="Ingrese su nombre de usuario"
-                    className="input input-bordered input-accent w-[60%]"
+                    className="input input-bordered placeholder-black input-accent w-[40vw]"
                     />
                 </div>
                 <div className="w-full flex flex-col items-center mt-4">
-                  <div className='flex items-start w-[60%]'>
-                    <label htmlFor="password" className="block font-medium text-gray-700 mb-1">Contraseña</label>
+                  <div className='flex items-start w-[40vw]'>
+                    <label htmlFor="password" className="block font-bold text-gray-700 mb-1">Contraseña</label>
                   </div>
                   <input
                     type="password"
                     id="password"
                     ref={passwordRef}
                     placeholder="Ingrese su contraseña"
-                    className="input input-bordered input-accent w-[60%]"
+                    className="input input-bordered placeholder-black input-accent w-[40vw]"
                     />
                 </div>
-                <div className="w-[60%] mt-6 flex justify-end">
-                  <button type="submit" className="btn btn-success text-white">INICIAR SESIÓN</button>
+                <div className="w-[40vw] mt-6 flex justify-end">
+                  <button type="submit" className="btn btn-success w-full text-white">INICIAR SESIÓN</button>
                 </div>
             </form>
       </>
