@@ -9,7 +9,9 @@ import Swal from 'sweetalert2';
 const ProductoRow = ({ name, costPrice, publicPrice }) => (
   <tr>
     <td className='text-black text-center text-2xl'>{name}</td>
-    <td className='text-black text-center text-4xl'>${costPrice}</td>
+    <td className={`text-black text-center ${costPrice ? 'text-4xl' : 'text-xl'}`}>
+      {costPrice ? `$${costPrice}` : 'Sin Datos'}
+    </td>
     <td className='text-black text-center text-4xl font-bold'>${publicPrice}</td>
   </tr>
 );

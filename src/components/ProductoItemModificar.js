@@ -6,7 +6,9 @@ const ProductoItemModificar = ({ name, costPrice, publicPrice, id}) => {
     return(
         <tr>
             <td className='text-black text-center text-2xl'>{name}</td>
-            <td className='text-black text-center text-4xl'> ${costPrice}</td>
+            <td className={`text-black text-center ${costPrice ? 'text-4xl' : 'text-xl'}`}>
+                {costPrice ? `$${costPrice}` : 'Sin Datos'}
+            </td>
             <td className='text-black text-center font-bold text-4xl'>${publicPrice}</td>
             <td>
                 <button className='btn btn-sm text-white btn-primary' onClick={()=>router.push('/dashboard/modificar/confirmar?idProductoDb='+id)}>Modificar</button>

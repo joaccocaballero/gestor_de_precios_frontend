@@ -17,15 +17,28 @@ export default function Agregar() {
   }
 
   const handleSubmit = async () => {
-    const product = {
-      name : nombreRef.current.value,
-      costPrice : precioCostoRef.current.value,
-      publicPrice : precioPublicoRef.current.value,
-      barcode : codigoRef.current.value
-    }
     try {
+      const nombre = nombreRef.current.value;
+      const precioPublico = precioPublicoRef.current.value;
+
+      // Validar que el nombre no esté vacío
+      if (nombre.trim() === '') {
+        throw new Error("Por favor, ingrese un nombre para el producto."); // Detener la ejecución si el nombre está vacío
+      }
+
+      // Validar que el precio público no esté vacío
+      if (precioPublico.trim() === '') {
+        throw new Error("Por favor, ingrese un precio público para el producto."); // Detener la ejecución si el precio público está vacío
+      }
+
+      const product = {
+        name : nombre,
+        costPrice : precioCostoRef.current.value,
+        publicPrice : precioPublico,
+        barcode : codigoRef.current.value
+      }
       const response = await addNewProduct(product);
-      console.log(response)
+
       if(response.status===200){
         Swal.fire({
           icon: 'success',
