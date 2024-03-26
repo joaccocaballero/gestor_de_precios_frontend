@@ -5,6 +5,7 @@ export async function getProductByBarcodeOrName(codeOrName) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
             },
         })
         const data = await response.json();
@@ -22,6 +23,7 @@ export async function getProductByDatabaseId(id) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
             },
         })
         const data = await response.json();
@@ -39,6 +41,7 @@ export async function updateProductByDatabaseId(id, product) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
             },
             body: JSON.stringify(product)
         })
@@ -59,6 +62,8 @@ export async function addNewProduct(product) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
+                
             },
             body: JSON.stringify(product)
         })
@@ -80,6 +85,7 @@ export async function deleteProduct(id) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("userToken")
             },
         })
         const data = await response.json();
